@@ -43,6 +43,7 @@ ModelImporter:
     2300018: Plane.004
     2300020: Plane.005
     2300022: Sphere
+    2300024: //RootNode
     3300000: Base
     3300002: Cube
     3300004: Cube.001
@@ -55,6 +56,7 @@ ModelImporter:
     3300018: Plane.004
     3300020: Plane.005
     3300022: Sphere
+    3300024: //RootNode
     4300000: Sphere
     4300002: Cube.002
     4300004: Plane.005
@@ -79,6 +81,7 @@ ModelImporter:
     6400018: Plane.004
     6400020: Plane.005
     6400022: Sphere
+    6400024: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
