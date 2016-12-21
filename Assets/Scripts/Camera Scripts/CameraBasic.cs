@@ -32,6 +32,7 @@ public class CameraBasic : MonoBehaviour,Camera_Base {
             PubRotationSpeed = value; 
         }
     }
+    public float PubZoomSpeed;
     public Transform PubTarget;
     public Transform Target
     {
@@ -47,15 +48,17 @@ public class CameraBasic : MonoBehaviour,Camera_Base {
     }
     private Vector3 rotationVector;
     public Vector3 Offset;
+    private Vector3 zoomVector = new Vector3();
     public Player playerControls;
     public Transform cameraRotator;
     public bool invertHorizontal, invertVertical;
     public float minXAngle,maxXAngle;
-    private float cHorizontal, cVertical;
+    private float cHorizontal, cVertical,cWheel;
     public void FollowTarget()
     {
         float step = Time.deltaTime * PubFollowSpeed;
         cameraRotator.position = Vector3.MoveTowards(cameraRotator.position, Target.position+Offset, step);
+      
     }
     public void Rotation()
     {
@@ -70,14 +73,25 @@ public class CameraBasic : MonoBehaviour,Camera_Base {
         TriToolHub.SetRotation(cameraRotator.gameObject, rotationVector, Space.Self);
         
     }
+    void Zoom()
+    {
+        cWheel += playerControls.GetAxis("Zoom") * PubZoomSpeed;
+        cWheel = Mathf.Clamp(cWheel, -12, -2);
+        zoomVector.z =cWheel;
+        zoomVector.x = transform.localPosition.x;
+        zoomVector.y = transform.localPosition.y;
+        transform.localPosition = zoomVector;
+    }
     void Start()
     {
         if (playerControls == null)
             playerControls = ReInput.players.GetPlayer(1);
+        cWheel = -10;
     }
     void Update()
     {
         FollowTarget();
         Rotation();
+        Zoom();
     }
 }
