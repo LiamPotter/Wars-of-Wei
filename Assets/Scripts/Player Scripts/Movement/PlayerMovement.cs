@@ -84,19 +84,6 @@ public class PlayerMovement : MonoBehaviour,IBase_Movement {
         }
     }
 
-    public float speedCap;
-    public float MovementCap
-    {
-        get
-        {
-            return speedCap;
-        }
-        set
-        {
-            speedCap = value;
-        }
-    }
-
     public bool isJumping;
 
     private bool canJump;
@@ -112,7 +99,7 @@ public class PlayerMovement : MonoBehaviour,IBase_Movement {
         horizontalAxis = playerControls.GetAxis("Horizontal");
         verticalAxis = playerControls.GetAxis("Vertical");
 
-        TriToolHub.CreateVector3(horizontalAxis, verticalAxis, Speed, TriToolHub.AxisPlane.XZ, (inCombat) ? gameObject : cameraObject, out mVector);
+        TriToolHub.CreateVector3(horizontalAxis, verticalAxis, Speed/10, TriToolHub.AxisPlane.XZ, (inCombat) ? gameObject : cameraObject, out mVector);
         if(CurrentState == PState.Jumping)
         {
             YVelocity = Mathf.Lerp(YVelocity, JumpForce, Time.deltaTime * velocityChangeSpeed);

@@ -19,6 +19,10 @@ ModelImporter:
     100022: Plane_005
     100024: PlayerScale
     100026: Sphere
+    100028: Cube_003
+    100030: Cylinder
+    100032: Plane_000
+    100034: Plane_006
     400000: Base
     400002: //RootNode
     400004: Cube
@@ -33,6 +37,10 @@ ModelImporter:
     400022: Plane_005
     400024: PlayerScale
     400026: Sphere
+    400028: Cube_003
+    400030: Cylinder
+    400032: Plane_000
+    400034: Plane_006
     2300000: Base
     2300002: Cube
     2300004: Cube_001
@@ -46,6 +54,10 @@ ModelImporter:
     2300020: Plane_005
     2300022: PlayerScale
     2300024: Sphere
+    2300026: Cube_003
+    2300028: Cylinder
+    2300030: Plane_000
+    2300032: Plane_006
     3300000: Base
     3300002: Cube
     3300004: Cube_001
@@ -59,6 +71,10 @@ ModelImporter:
     3300020: Plane_005
     3300022: PlayerScale
     3300024: Sphere
+    3300026: Cube_003
+    3300028: Cylinder
+    3300030: Plane_000
+    3300032: Plane_006
     4300000: Sphere
     4300002: Cube_002
     4300004: Plane_005
@@ -72,6 +88,10 @@ ModelImporter:
     4300020: PlayerScale
     4300022: Mid_Pillars
     4300024: Base
+    4300026: Cylinder
+    4300028: Plane_000
+    4300030: Plane_006
+    4300032: Cube_003
     7400000: Default Take
     9500000: //RootNode
   materials:

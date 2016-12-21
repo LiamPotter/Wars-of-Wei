@@ -7,8 +7,6 @@ public interface IBase_Movement
     
     float Speed { get; set; }
     int RotationSpeed { get; set; }
-    
-    float MovementCap { get; set; }
 
     Vector3 MovementVector { get; set; }
 

@@ -18,6 +18,10 @@ ModelImporter:
     100020: Plane.004
     100022: Plane.005
     100024: Sphere
+    100026: Cube.003
+    100028: Cylinder
+    100030: Plane.000
+    100032: Plane.006
     400000: Base
     400002: //RootNode
     400004: Cube
@@ -31,6 +35,10 @@ ModelImporter:
     400020: Plane.004
     400022: Plane.005
     400024: Sphere
+    400026: Cube.003
+    400028: Cylinder
+    400030: Plane.000
+    400032: Plane.006
     2300000: Base
     2300002: Cube
     2300004: Cube.001
@@ -44,6 +52,10 @@ ModelImporter:
     2300020: Plane.005
     2300022: Sphere
     2300024: //RootNode
+    2300026: Cube.003
+    2300028: Cylinder
+    2300030: Plane.000
+    2300032: Plane.006
     3300000: Base
     3300002: Cube
     3300004: Cube.001
@@ -57,6 +69,10 @@ ModelImporter:
     3300020: Plane.005
     3300022: Sphere
     3300024: //RootNode
+    3300026: Cube.003
+    3300028: Cylinder
+    3300030: Plane.000
+    3300032: Plane.006
     4300000: Sphere
     4300002: Cube.002
     4300004: Plane.005
@@ -69,6 +85,10 @@ ModelImporter:
     4300018: Plane
     4300020: Mid Pillars
     4300022: Base
+    4300024: Cylinder
+    4300026: Plane.000
+    4300028: Plane.006
+    4300030: Cube.003
     6400000: Base
     6400002: Cube
     6400004: Cube.001
@@ -82,6 +102,10 @@ ModelImporter:
     6400020: Plane.005
     6400022: Sphere
     6400024: //RootNode
+    6400026: Cube.003
+    6400028: Cylinder
+    6400030: Plane.000
+    6400032: Plane.006
   materials:
     importMaterials: 1
     materialName: 0
