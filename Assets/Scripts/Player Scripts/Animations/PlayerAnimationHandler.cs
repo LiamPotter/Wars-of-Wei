@@ -48,15 +48,14 @@ public class PlayerAnimationHandler : MonoBehaviour {
                 surveyorWheel.gameObject.SetActive(false);
         }
         angleCounter += turnAngle;
-
+        
         if (angleCounter > stepDistance)
             angleCounter = 0F;
 
         animator.SetFloat("Step", (angleCounter / stepDistance));
-
         if (animator.GetFloat("Step") > 1F)
             animator.SetFloat("Step", 0);
-
+        //playerMovement.thisModel.transform.localPosition
         lastPosition = currPosition;
     }
 }
