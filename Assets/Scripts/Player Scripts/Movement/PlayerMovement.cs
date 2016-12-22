@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour,IBase_Movement {
     public bool inCombat;
 
     public GameObject cameraObject;
-    public Transform thisModel;
+    public Transform thisModel, playerRotator;
     public Transform Model
     {
         get
@@ -88,19 +88,20 @@ public class PlayerMovement : MonoBehaviour,IBase_Movement {
 
     private bool canJump;
     private float pJumpTime;
-    public float JumpForce, JumpTime, Gravity,velocityChangeSpeed;
+    public float leanAmount,JumpForce, JumpTime, Gravity,velocityChangeSpeed;
 
     private Player playerControls;
+    private PlayerAnimationHandler P_AnimationHandler;
 
-    private float horizontalAxis, verticalAxis, YVelocity;
+    private float horizontalAxis, verticalAxis, YVelocity, currLean;
 
     public void Movement()
     {
-        horizontalAxis = playerControls.GetAxis("Horizontal");
-        verticalAxis = playerControls.GetAxis("Vertical");
+      
 
         TriToolHub.CreateVector3(horizontalAxis, verticalAxis, Speed/10, TriToolHub.AxisPlane.XZ, (inCombat) ? gameObject : cameraObject, out mVector);
-        if(CurrentState == PState.Jumping)
+        mVector = Vector3.ClampMagnitude(mVector, Speed / 10);
+        if (CurrentState == PState.Jumping)
         {
             YVelocity = Mathf.Lerp(YVelocity, JumpForce, Time.deltaTime * velocityChangeSpeed);
             mVector.y = YVelocity;
@@ -110,14 +111,32 @@ public class PlayerMovement : MonoBehaviour,IBase_Movement {
             YVelocity = Mathf.Lerp(YVelocity, Gravity, Time.deltaTime * velocityChangeSpeed);
             mVector.y = YVelocity;
         }
+        
         //TriToolHub.AddForce(gameObject, MovementVector, Space.World, ForceMode.Force);
         CharacterController.Move(mVector);
-        //thisRigidbody.velocity = Vector3.ClampMagnitude(thisRigidbody.velocity, MovementCap);
+        P_AnimationHandler.SurveyorWheel();
+
     }
 
     public void Rotation()
     {
-        TriToolHub.SmoothLookAtDirection(Model.gameObject, MovementVector, 0.01f, Model.up, true, RotationSpeed);
+        //Vector3 tVec = CharacterController.velocity + leanVector;
+        TriToolHub.SmoothLookAtDirection(playerRotator.gameObject, CharacterController.velocity, 0.01f, transform.up, true, RotationSpeed);
+
+        Vector3 tiltAxis = Vector3.Cross(transform.up, CharacterController.velocity.normalized);
+        Quaternion rot = Quaternion.AngleAxis(leanAmount, tiltAxis);
+        rot *= playerRotator.rotation;
+        //TriToolHub.SetRotation(Model.gameObject, rot, Space.Self);
+
+        //TriToolHub.SetRotation(Model.gameObject, rot, Space.World);
+        if (CurrentState != PState.Idle)
+        {
+            Model.transform.rotation = Quaternion.Lerp(Model.transform.rotation, rot, Time.deltaTime*(RotationSpeed));
+        }
+        else
+        {
+            Model.transform.rotation = Quaternion.Lerp(Model.transform.rotation, playerRotator.rotation, Time.deltaTime * (RotationSpeed));
+        }
     }
 
     void Start ()
@@ -128,9 +147,12 @@ public class PlayerMovement : MonoBehaviour,IBase_Movement {
             playerControls = ReInput.players.GetPlayer(1);
         if (thisCharacterController == null)
             thisCharacterController = GetComponent<CharacterController>();
-	}
+        P_AnimationHandler = GetComponent<PlayerAnimationHandler>();
+    }
 	void Update()
     {
+        horizontalAxis = playerControls.GetAxis("Horizontal");
+        verticalAxis = playerControls.GetAxis("Vertical");
         CurrentState = EvaluateState();
     }
 	void FixedUpdate ()
@@ -145,7 +167,7 @@ public class PlayerMovement : MonoBehaviour,IBase_Movement {
         switch (CurrentState)
         {
             case PState.Idle:
-                Movement();
+                //Movement();
                 break;
             case PState.Moving:
                 Movement();
@@ -186,10 +208,13 @@ public class PlayerMovement : MonoBehaviour,IBase_Movement {
             return PState.Falling;
         if (Mathf.Abs(playerControls.GetAxis("Horizontal")) > 0.1f || Mathf.Abs(playerControls.GetAxis("Vertical")) > 0.1f)
         {
-            if(CurrentState!=PState.Jumping)
+            if (CurrentState != PState.Jumping)
+            {
+                P_AnimationHandler.animator.SetBool("Moving", true);
                 return PState.Moving;
+            }
         }
-
+        P_AnimationHandler.animator.SetBool("Moving", false);
         return PState.Idle;
     }
 }
